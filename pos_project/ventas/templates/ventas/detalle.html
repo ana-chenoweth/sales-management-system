@@ -37,7 +37,8 @@
 
     <div class="mt-4">
         <a href="{% url 'ventas:nueva' %}" class="btn btn-primary">➕ Registrar otra venta</a>
-        <!-- Opción para descargar PDF proximamente -->
+        <a href="{% url 'ventas:pdf' venta.id %}" class="btn btn-outline-danger ms-2"> Descargar PDF</a>
+        <a href="{% url 'ventas:csv' venta.id %}" class="btn btn-outline-success ms-2"> Exportar CSV</a>
     </div>
 
 </body>
