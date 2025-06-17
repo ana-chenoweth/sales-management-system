@@ -1,0 +1,8 @@
+
+Django>=4.2,<5.0
+djangorestframework>=3.14.0
+djangorestframework-simplejwt>=5.2.2
+psycopg2>=2.9.9
+xhtml2pdf>=0.2.11
+weasyprint>=60.1
+Pillow>=10.2.0
