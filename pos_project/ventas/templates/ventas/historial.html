@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Ventas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-5">
+
+    <h1 class="mb-4">Historial de Ventas</h1>
+
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <label class="form-label">Desde</label>
+            <input type="date" name="inicio" class="form-control" value="{{ fecha_inicio }}">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Hasta</label>
+            <input type="date" name="fin" class="form-control" value="{{ fecha_fin }}">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Buscar por ID</label>
+            <input type="text" name="q" class="form-control" placeholder="Ej: 3" value="{{ busqueda }}">
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button class="btn btn-primary w-100">🔍 Filtrar</button>
+        </div>
+    </form>
+
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venta in ventas %}
+            <tr>
+                <td>#{{ venta.id }}</td>
+                <td>{{ venta.fecha }}</td>
+                <td>${{ venta.total }}</td>
+                <td>
+                    <a href="{% url 'ventas:detalle' venta.id %}" class="btn btn-sm btn-info">🔍 Ver</a>
+                    <a href="{% url 'ventas:pdf' venta.id %}" class="btn btn-sm btn-danger">📄 PDF</a>
+                    <a href="{% url 'ventas:csv' venta.id %}" class="btn btn-sm btn-success">📊 CSV</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No se encontraron ventas.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
