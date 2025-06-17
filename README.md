@@ -21,10 +21,7 @@ Este proyecto es un sistema de punto de venta (POS) desarrollado con Django. Per
 - Python 3.10+
 - Django 4.x
 - PostgreSQL o SQLite
-- Django REST Framework (opcional)
-- JWT (opcional)
 - Bootstrap 5
-- Chart.js (para gráficas, opcional)
 - WeasyPrint o xhtml2pdf (para PDF)
 
 ---
@@ -36,7 +33,6 @@ Este proyecto es un sistema de punto de venta (POS) desarrollado con Django. Per
 - Registro de ventas y cálculo automático de totales
 - Reducción de inventario tras venta
 - Panel de historial de ventas por día/mes
-- Dashboard con gráficas de ventas (opcional)
 - Exportación de tickets y reportes
 
 ---
