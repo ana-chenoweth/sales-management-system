@@ -1,30 +1,22 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Iniciar sesión</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="container py-5">
+{% extends "base.html" %}
 
-    <h2 class="mb-4">🔐 Iniciar sesión</h2>
+{% block content %}
+  <h2>🔐 Iniciar sesión</h2>
 
-    <form method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="username" class="form-label">Usuario</label>
-            <input type="text" name="username" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="password" name="password" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Entrar</button>
-    </form>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="username" class="form-label">Usuario</label>
+        <input type="text" name="username" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Entrar</button>
+  </form>
 
-    {% if form.errors %}
-        <p class="text-danger mt-3">Usuario o contraseña incorrectos.</p>
-    {% endif %}
-
-</body>
-</html>
+  {% if form.errors %}
+    <p class="text-danger mt-3">Usuario o contraseña incorrectos.</p>
+  {% endif %}
+{% endblock %}
