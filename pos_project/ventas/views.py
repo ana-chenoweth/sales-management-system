@@ -11,8 +11,9 @@ import csv
 from django.http import HttpResponse
 from django.db.models import Q
 from django.utils.dateparse import parse_date
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def nueva_venta(request):
     if request.method == 'POST':
         forms_data = []
@@ -39,6 +40,7 @@ def nueva_venta(request):
         form = DetalleVentaForm()
         return render(request, 'ventas/nueva.html', {'form': form})
 
+@login_required
 def detalle_venta(request, id):
     venta = Venta.objects.get(id=id)
     detalles = DetalleVenta.objects.filter(venta=venta)
@@ -67,6 +69,7 @@ def venta_pdf(request, id):
     response['Content-Disposition'] = f'filename=venta_{venta.id}.pdf'
     return response
 
+@login_required
 def venta_csv(request, id):
     venta = Venta.objects.get(id=id)
     detalles = DetalleVenta.objects.filter(venta=venta)
@@ -83,6 +86,7 @@ def venta_csv(request, id):
 
     return response
 
+@login_required
 def historial_ventas(request):
     ventas = Venta.objects.all().order_by('-fecha')
 
