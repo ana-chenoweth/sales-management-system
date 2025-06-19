@@ -1,17 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Bienvenido/a, {{ user.username }}</h2>
-<p>¿Qué deseas hacer?</p>
-
-<a href="{% url 'productos:listar' %}">
-  <button>Ver productos</button>
-</a>
-
-<a href="{% url 'ventas:historial' %}">
-  <button>Ver historial de ventas</button>
-</a>
-
-<a href="{% url 'ventas:nueva' %}">
-  <button>Registrar nueva venta</button>
-</a>
+  <h2 class="mb-3">Bienvenido/a, {{ user.username }}</h2>
+  <p class="text-muted">Este será tu panel de control.</p>
+  <!-- Aquí más adelante podemos insertar gráficos con Chart.js-->
 {% endblock %}
