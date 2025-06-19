@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Bienvenido/a, {{ user.username }}</h2>
+<p>¿Qué deseas hacer?</p>
+
+<a href="{% url 'productos:listar' %}">
+  <button>Ver productos</button>
+</a>
+
+<a href="{% url 'ventas:historial' %}">
+  <button>Ver historial de ventas</button>
+</a>
+
+<a href="{% url 'ventas:nueva' %}">
+  <button>Registrar nueva venta</button>
+</a>
+{% endblock %}

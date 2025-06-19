@@ -9,5 +9,4 @@ urlpatterns = [
     path('pdf/<int:id>/', views.venta_pdf, name='pdf'),
     path('csv/<int:id>/', views.venta_csv, name='csv'),
     path('', views.historial_ventas, name='historial'),
-    path('inicio/', views.inicio, name='inicio'),
 ]

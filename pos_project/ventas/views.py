@@ -13,12 +13,6 @@ from django.db.models import Q
 from django.utils.dateparse import parse_date
 from django.contrib.auth.decorators import login_required
 
-from django.shortcuts import render
-
-@login_required
-def inicio(request):
-    return render(request, 'ventas/inicio.html')
-
 
 @login_required
 def nueva_venta(request):
