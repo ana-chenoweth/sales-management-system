@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Clientes{% endblock %}
+{% block content %}
+  <h2 class="mb-3">Clientes</h2>
+  <a href="{% url 'clientes:nuevo' %}" class="btn btn-success mb-3">Agregar nuevo cliente</a>
+
+  {% if clientes %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cliente in clientes %}
+          <tr>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.correo }}</td>
+            <td>
+              <a href="{% url 'clientes:editar' cliente.pk %}" class="btn btn-sm btn-warning">Editar</a>
+              <a href="{% url 'clientes:eliminar' cliente.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert alert-info">No hay clientes registrados.</div>
+  {% endif %}
+{% endblock %}

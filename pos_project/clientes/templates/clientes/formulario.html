@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2 class="mb-3">Formulario de Cliente</h2>
+  <form method="post" class="card p-4 shadow-sm">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+    <a href="{% url 'clientes:lista' %}" class="btn btn-secondary mt-2">Cancelar</a>
+  </form>
+{% endblock %}
