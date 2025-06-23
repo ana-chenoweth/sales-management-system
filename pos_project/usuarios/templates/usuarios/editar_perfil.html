@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Editar Perfil</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+  {% if user.foto %}
+    <h3>Vista previa:</h3>
+    <img src="{{ user.foto.url }}" alt="Foto de perfil" style="max-width: 200px;">
+  {% endif %}
+{% endblock %}

@@ -6,3 +6,8 @@ class RegistroUsuarioForm(UserChangeForm):
     class Meta:
         model = Usuario
         fields = ['username', 'email', 'rol']
+
+class PerfilForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['username', 'email', 'foto']

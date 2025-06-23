@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Usuario
 from .forms import RegistroUsuarioForm
 from django.contrib.auth.decorators import login_required, user_passes_test
+from .forms import PerfilForm
 
 
 def es_admin(user):
@@ -40,3 +41,14 @@ def registro(request):
     else:
         form = RegistroUsuarioForm()
     return render(request, 'usuarios/registro.html', {'form': form})
+
+@login_required
+def editar_perfil(request):
+    if request.method == 'POST':
+        form = PerfilForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('editar_perfil')
+    else:
+        form = PerfilForm(instance=request.user)
+    return render(request, 'usuarios/editar_perfil.html', {'form': form})
