@@ -5,7 +5,7 @@ from .models import Usuario
 class RegistroUsuarioForm(UserChangeForm):
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'rol']
+        fields = ['username', 'email', 'rol', 'foto']
 
 class PerfilForm(forms.ModelForm):
     class Meta:
