@@ -14,13 +14,19 @@
     <div class="collapse navbar-collapse">
       <!-- Menú principal a la izquierda -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        
+        {% if user.rol == 'admin' %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'lista' %}">Usuarios</a>
+          </li>
+        {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'productos:listar' %}">Productos</a>
           </li>
+          {% if user.rol == 'admin' or user.rol == 'gerente'%}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'clientes:lista' %}">Clientes</a>
           </li>
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'ventas:historial' %}">Ventas</a>
           </li>

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Usuarios</h2>
+
+  {% if user.usuario.rol == 'ADMIN' %}
+    <a href="{% url 'registro' %}" class="btn btn-primary mb-3">Crear nuevo usuario</a>
+  {% endif %}
+
+  <ul class="list-group">
+    {% for usuario in usuarios %}
+      <li class="list-group-item">
+        {{ usuario.username }} ({{ usuario.rol }}) — ID: {{ usuario.pk }}
+        {% if usuario.pk %}
+          <a href="{% url 'editar_usuario' usuario.pk %}" class="btn btn-sm btn-warning">Editar</a>
+          <a href="{% url 'eliminar_usuario' usuario.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+        {% else %}
+          <span class="text-danger">Usuario sin ID válido</span>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
