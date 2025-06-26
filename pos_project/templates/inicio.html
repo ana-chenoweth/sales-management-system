@@ -3,35 +3,41 @@
   <div class="container mt-4">
     <h1 class="mb-4">Bienvenido, {{ user.username }}</h1>
 
-    <div id="admin-dashboard" style="display: none;">
-      <h2>Panel de Administrador</h2>
-      <p>Total de usuarios registrados: <span id="total-usuarios"></span></p>
-      <p>Total de ventas: <span id="total-ventas"></span></p>
-      <p>Productos bajos en inventario:</p>
-      <ul id="productos-bajos"></ul>
-      <a href="{% url 'usuarios:lista' %}" class="btn btn-primary">Gestionar Usuarios</a>
+    <div id="admin-dashboard" class="card shadow-sm p-4 mb-4" style="display: none;">
+      <h2 class="text-primary">Panel de Administrador</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <p class="fs-5">👤 Total de usuarios registrados: <strong><span id="total-usuarios"></span></strong></p>
+          <p class="fs-5">🧾 Total de ventas: <strong><span id="total-ventas"></span></strong></p>
+        </div>
+        <div class="col-md-6">
+          <h5>📦 Productos bajos en inventario:</h5>
+          <ul id="productos-bajos" class="list-group"></ul>
+        </div>
+      </div>
+      <a href="{% url 'usuarios:lista' %}" class="btn btn-outline-primary mt-3">Gestionar Usuarios</a>
     </div>
 
-    <div id="gerente-dashboard" style="display: none;">
-      <h2>Panel de Gerente</h2>
+    <div id="gerente-dashboard" class="card shadow-sm p-4 mb-4" style="display: none;">
+      <h2 class="text-success">Panel de Gerente</h2>
       <canvas id="ventasResumenChart" height="100"></canvas>
       <canvas id="productosMasVendidosChart" height="100"></canvas>
-      <a href="#" class="btn btn-secondary mt-3">Ver Reporte de Clientes</a>
+      <a href="#" class="btn btn-outline-secondary mt-3">Ver Reporte de Clientes</a>
     </div>
 
-    <div id="cajero-dashboard" style="display: none;">
-      <h2>Panel de Cajero</h2>
-      <a href="{% url 'ventas:nueva' %}" class="btn btn-success">Registrar nueva venta</a>
-      <a href="{% url 'ventas:historial' %}" class="btn btn-outline-primary">Ver historial de ventas</a>
-      <h5 class="mt-4">Productos:</h5>
-      <ul id="lista-productos"></ul>
+    <div id="cajero-dashboard" class="card shadow-sm p-4 mb-4" style="display: none;">
+      <h2 class="text-warning">Panel de Cajero</h2>
+      <a href="{% url 'ventas:nueva' %}" class="btn btn-success mb-2">➕ Registrar nueva venta</a>
+      <a href="{% url 'ventas:historial' %}" class="btn btn-outline-primary mb-3">📄 Ver historial de ventas</a>
+      <h5>🛒 Productos:</h5>
+      <ul id="lista-productos" class="list-group"></ul>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const rol = '{{ user.rol }}';
-    console.log("Rol del usuario:", rol);  // Para debug
+    console.log("Rol del usuario:", rol);
 
     if (rol === 'admin') {
       document.getElementById('admin-dashboard').style.display = 'block';
@@ -43,6 +49,7 @@
           const lista = document.getElementById('productos-bajos');
           data.productos_bajos.forEach(p => {
             const li = document.createElement('li');
+            li.className = 'list-group-item';
             li.textContent = `${p.nombre} (stock: ${p.stock})`;
             lista.appendChild(li);
           });
@@ -61,6 +68,7 @@
               datasets: [{
                 label: 'Ventas',
                 data: data.ventas,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
               }]
             }
           });
@@ -72,6 +80,7 @@
               datasets: [{
                 label: 'Más vendidos',
                 data: data.cantidades,
+                backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56']
               }]
             }
           });
@@ -86,6 +95,7 @@
           const lista = document.getElementById('lista-productos');
           data.productos.forEach(p => {
             const li = document.createElement('li');
+            li.className = 'list-group-item';
             li.textContent = `${p.nombre} (stock: ${p.stock})`;
             lista.appendChild(li);
           });
