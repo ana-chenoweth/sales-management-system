@@ -16,7 +16,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         {% if user.rol == 'admin' %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'lista' %}">Usuarios</a>
+            <a class="nav-link" href="{% url 'usuarios:lista' %}">Usuarios</a>
           </li>
         {% endif %}
           <li class="nav-item">
@@ -35,7 +35,7 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'editar_perfil' %}">Mi perfil</a>
+            <a class="nav-link" href="{% url 'usuarios:editar_perfil' %}">Mi perfil</a>
           </li>
           <li class="nav-item">
             <form action="{% url 'logout' %}" method="post" class="nav-link">
@@ -48,7 +48,7 @@
             <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'registro' %}">Registrarse</a>
+            <a class="nav-link" href="{% url 'usuarios:registro' %}">Registrarse</a>
           </li>
         {% endif %}
       </ul>
