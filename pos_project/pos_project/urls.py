@@ -30,5 +30,7 @@ urlpatterns = [
     path('usuarios/', include('usuarios.urls')),
     path('', inicio, name='inicio'), 
     path('clientes/', include('clientes.urls')),
+    path('api/dashboard/', include('dashboard.urls')),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
