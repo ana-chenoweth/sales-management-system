@@ -1,6 +1,95 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block content %}
-  <h2 class="mb-3">Bienvenido/a, {{ user.username }}</h2>
-  <p class="text-muted">Este será tu panel de control.</p>
-  <!-- Aquí más adelante podemos insertar gráficos con Chart.js-->
+  <div class="container mt-4">
+    <h1 class="mb-4">Bienvenido, {{ user.username }}</h1>
+
+    <div id="admin-dashboard" style="display: none;">
+      <h2>Panel de Administrador</h2>
+      <p>Total de usuarios registrados: <span id="total-usuarios"></span></p>
+      <p>Total de ventas: <span id="total-ventas"></span></p>
+      <p>Productos bajos en inventario:</p>
+      <ul id="productos-bajos"></ul>
+      <a href="{% url 'usuarios:lista' %}" class="btn btn-primary">Gestionar Usuarios</a>
+    </div>
+
+    <div id="gerente-dashboard" style="display: none;">
+      <h2>Panel de Gerente</h2>
+      <canvas id="ventasResumenChart" height="100"></canvas>
+      <canvas id="productosMasVendidosChart" height="100"></canvas>
+      <a href="#" class="btn btn-secondary mt-3">Ver Reporte de Clientes</a>
+    </div>
+
+    <div id="cajero-dashboard" style="display: none;">
+      <h2>Panel de Cajero</h2>
+      <a href="{% url 'ventas:nueva' %}" class="btn btn-success">Registrar nueva venta</a>
+      <a href="{% url 'ventas:historial' %}" class="btn btn-outline-primary">Ver historial de ventas</a>
+      <h5 class="mt-4">Productos:</h5>
+      <ul id="lista-productos"></ul>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const rol = '{{ user.rol }}';
+    console.log("Rol del usuario:", rol);  // Para debug
+
+    if (rol === 'admin') {
+      document.getElementById('admin-dashboard').style.display = 'block';
+      fetch('/api/dashboard/admin/')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('total-usuarios').textContent = data.total_usuarios;
+          document.getElementById('total-ventas').textContent = data.total_ventas;
+          const lista = document.getElementById('productos-bajos');
+          data.productos_bajos.forEach(p => {
+            const li = document.createElement('li');
+            li.textContent = `${p.nombre} (stock: ${p.stock})`;
+            lista.appendChild(li);
+          });
+        });
+    }
+
+    if (rol === 'gerente') {
+      document.getElementById('gerente-dashboard').style.display = 'block';
+      fetch('/api/dashboard/gerente/')
+        .then(res => res.json())
+        .then(data => {
+          new Chart(document.getElementById('ventasResumenChart'), {
+            type: 'bar',
+            data: {
+              labels: data.fechas,
+              datasets: [{
+                label: 'Ventas',
+                data: data.ventas,
+              }]
+            }
+          });
+
+          new Chart(document.getElementById('productosMasVendidosChart'), {
+            type: 'pie',
+            data: {
+              labels: data.productos,
+              datasets: [{
+                label: 'Más vendidos',
+                data: data.cantidades,
+              }]
+            }
+          });
+        });
+    }
+
+    if (rol === 'cajero') {
+      document.getElementById('cajero-dashboard').style.display = 'block';
+      fetch('/api/dashboard/cajero/')
+        .then(res => res.json())
+        .then(data => {
+          const lista = document.getElementById('lista-productos');
+          data.productos.forEach(p => {
+            const li = document.createElement('li');
+            li.textContent = `${p.nombre} (stock: ${p.stock})`;
+            lista.appendChild(li);
+          });
+        });
+    }
+  </script>
 {% endblock %}
