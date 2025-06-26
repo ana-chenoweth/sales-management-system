@@ -3,6 +3,14 @@
 {% block content %}
 <body class="container py-4">
     <h1>Registrar Nueva Venta</h1>
+    {% if messages %}
+    <ul class="alert alert-danger">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <form method="post" id="ventaForm">
         {% csrf_token %}
         <input type="hidden" name="form-TOTAL_FORMS" id="totalForms" value="1">
@@ -11,15 +19,17 @@
             <div class="row mb-3 form-group" id="form-0">
                 <div class="col-md-5">
                     <label>Producto</label>
-                    <select name="form-0-producto" class="form-control">
-                        {% for producto in form.fields.producto.queryset %}
-                        <option value="{{ producto.id }}">{{ producto.nombre }} (${{ producto.precio }})</option>
-                        {% endfor %}
+                    <select name="form-0-producto" class="form-control" onchange="actualizarMax(0)">
+                    {% for producto in form.fields.producto.queryset %}
+                        <option value="{{ producto.id }}" data-stock="{{ producto.stock }}">
+                        {{ producto.nombre }} (${{ producto.precio }}) - Stock: {{ producto.stock }}
+                        </option>
+                    {% endfor %}
                     </select>
                 </div>
                 <div class="col-md-3">
                     <label>Cantidad</label>
-                    <input type="number" name="form-0-cantidad" class="form-control" value="1" min="1">
+                    <input type="number" name="form-0-cantidad" class="form-control" value="1" min="1" max="1" id="cantidad-0">
                 </div>
                 <div class="col-md-2 d-flex align-items-end">
                     <button type="button" class="btn btn-danger" onclick="eliminarFormulario(0)">🗑</button>
@@ -45,17 +55,21 @@
             [...nuevo.querySelectorAll('select,input')].forEach(el => {
                 const name = el.getAttribute('name');
                 if (name) {
-                    const nuevoName = name.replace('form-0', `form-${totalForms}`);
-                    el.setAttribute('name', nuevoName);
+                const nuevoName = name.replace('form-0', `form-${totalForms}`);
+                el.setAttribute('name', nuevoName);
+                el.setAttribute('id', nuevoName.replace('-', '_'));
                 }
                 if (el.tagName === 'INPUT') el.value = 1;
             });
 
+            nuevo.querySelector('select').setAttribute('onchange', `actualizarMax(${totalForms})`);
             nuevo.querySelector('button').setAttribute('onclick', `eliminarFormulario(${totalForms})`);
             formset.appendChild(nuevo);
 
             totalForms++;
             document.getElementById('totalForms').value = totalForms;
+
+            actualizarMax(totalForms - 1);
         }
 
         function eliminarFormulario(id) {
@@ -65,6 +79,12 @@
                 totalForms--;
                 document.getElementById('totalForms').value = totalForms;
             }
+        }
+        function actualizarMax(i) {
+            const productoSelect = document.querySelector(`select[name="form-${i}-producto"]`);
+            const selectedOption = productoSelect.options[productoSelect.selectedIndex];
+            const stock = selectedOption.getAttribute('data-stock');
+            document.getElementById(`cantidad-${i}`).max = stock;
         }
     </script>
 </body>

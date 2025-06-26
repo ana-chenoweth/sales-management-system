@@ -12,22 +12,33 @@ from django.http import HttpResponse
 from django.db.models import Q
 from django.utils.dateparse import parse_date
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
 
 @login_required
 def nueva_venta(request):
     if request.method == 'POST':
         forms_data = []
         total = 0
+        errores_stock = []
 
         for i in range(0, int(request.POST.get('form-TOTAL_FORMS'))):
             producto_id = request.POST.get(f'form-{i}-producto')
             cantidad = int(request.POST.get(f'form-{i}-cantidad'))
-
             producto = Producto.objects.get(id=producto_id)
-            subtotal = producto.precio * cantidad
-            total += subtotal
-            forms_data.append((producto, cantidad, producto.precio))
+
+            # Validar stock
+            if cantidad > producto.stock:
+                errores_stock.append(f"Stock insuficiente para {producto.nombre} (stock disponible: {producto.stock})")
+            else:
+                subtotal = producto.precio * cantidad
+                total += subtotal
+                forms_data.append((producto, cantidad, producto.precio))
+
+        if errores_stock:
+            for error in errores_stock:
+                messages.error(request, error)
+            form = DetalleVentaForm()
+            return render(request, 'ventas/nueva.html', {'form': form})
 
         venta = Venta.objects.create(total=total)
         for producto, cantidad, precio in forms_data:
@@ -40,6 +51,7 @@ def nueva_venta(request):
     else:
         form = DetalleVentaForm()
         return render(request, 'ventas/nueva.html', {'form': form})
+
 
 @login_required
 def detalle_venta(request, id):
