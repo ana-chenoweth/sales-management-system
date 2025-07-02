@@ -28,3 +28,8 @@ urllib3==2.5.0
 weasyprint==65.1
 webencodings==0.5.1
 zopfli==0.2.3.post1
+sqlparse==0.5.3
+tzdata==2025.2
+urllib3==2.4.0
+gunicorn
+whitenoise==6.6.0
