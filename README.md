@@ -26,7 +26,7 @@ Este proyecto es un sistema de punto de venta (POS) desarrollado con Django. Per
 
 ### Administrador
 ![Panel Admin](img/panel-admin.png)
-![Usuarios](img/usuaios.png)
+![Usuarios](img/usuarios.png)
 ---
 
 ## Objetivos del proyecto
