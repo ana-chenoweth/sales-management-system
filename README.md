@@ -5,6 +5,30 @@ Este proyecto es un sistema de punto de venta (POS) desarrollado con Django. Per
 
 ---
 
+## Capturas 
+### Inicio de sesión
+![Login](img/login.png)
+![Editar perfil](img/editar-perfil.png)
+
+### Cajero
+![Ventas](img/ventas.png)
+![PDF](img/pdf.png)
+![Nueva venta](img/nueva-venta.png)
+![Productos](img/productos.png)
+
+
+### Gerente
+![Panel Gerente](img/panel-gerente.png)
+![Graficos](img/graficos.png)
+![Clientes](img/clientes.png)
+![Nuevo cliente](img/forms-cliente.png)
+
+
+### Administrador
+![Panel Admin](img/panel-admin.png)
+![Usuarios](img/usuaios.png)
+---
+
 ## Objetivos del proyecto
 
 - Gestionar productos y su inventario.
@@ -22,7 +46,7 @@ Este proyecto es un sistema de punto de venta (POS) desarrollado con Django. Per
 - Django 4.x
 - PostgreSQL o SQLite
 - Bootstrap 5
-- WeasyPrint o xhtml2pdf (para PDF)
+- WeasyPrint (para PDF)
 
 ---
 

@@ -6,3 +6,4 @@ psycopg2>=2.9.9
 xhtml2pdf>=0.2.11
 weasyprint>=60.1
 Pillow>=10.2.0
+social-auth-app-django
