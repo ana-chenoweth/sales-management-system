@@ -3,6 +3,7 @@ from .models import Usuario
 from .forms import RegistroUsuarioForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import PerfilForm
+from django.contrib.auth import update_session_auth_hash
 
 
 def es_admin(user):
@@ -48,7 +49,19 @@ def editar_perfil(request):
         form = PerfilForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('editar_perfil')
+            return redirect('inicio')
     else:
         form = PerfilForm(instance=request.user)
     return render(request, 'usuarios/editar_perfil.html', {'form': form})
+
+@login_required
+def cambiar_contrasena(request):
+    if request.method == 'POST':
+        form = CambiarPasswordForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('inicio')
+    else:
+        form = CambiarPasswordForm(user=request.user)
+    return render(request, 'usuarios/cambiar_contrasena.html', {'form': form})

@@ -9,4 +9,5 @@ urlpatterns = [
     path('lista/', views.lista_usuarios, name='lista'),
     path('registro/', views.registro, name='registro'),
     path('editar-perfil/', views.editar_perfil, name='editar_perfil'),
+    path('cambiar-contrasena/', views.cambiar_contrasena, name='cambiar_contrasena'),
 ]
