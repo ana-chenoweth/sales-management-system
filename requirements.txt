@@ -7,9 +7,6 @@ cryptography==45.0.5
 cssselect2==0.8.0
 defusedxml==0.7.1
 Django==5.2.3
-djangorestframework>=3.14.0
-djangorestframework-simplejwt>=5.2.2
-psycopg2>=2.9.9
 fonttools==4.58.4
 idna==3.10
 oauthlib==3.3.1
@@ -31,10 +28,3 @@ urllib3==2.5.0
 weasyprint==65.1
 webencodings==0.5.1
 zopfli==0.2.3.post1
-social-auth-app-django==5.4.3
-social-auth-core==4.5.6
-sqlparse==0.5.3
-tzdata==2025.2
-urllib3==2.4.0
-gunicorn
-whitenoise==6.6.0
