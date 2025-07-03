@@ -2,7 +2,7 @@
 {% block content %}
   <h2>Usuarios</h2>
 
-    <a href="{% url 'registro' %}" class="btn btn-primary mb-3">Crear nuevo usuario</a>
+   <a href="{% url 'usuarios:registro' %}" class="btn btn-primary mb-3">Crear nuevo usuario</a>
   <ul class="list-group">
     {% for usuario in usuarios %}
       <li class="list-group-item">
