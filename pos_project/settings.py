@@ -49,13 +49,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email', 'profile']
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True 
 
-# Fuerza el dominio exacto usado por tu navegador
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
-SOCIAL_AUTH_COMPLETE_URL_NAME = 'social:complete'
-
-# Para mayor control, puedes agregar (opcional):
-SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
