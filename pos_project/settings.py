@@ -38,7 +38,7 @@ SECRET_KEY = 'django-insecure-vu3wpdei$=)12w+m6#=7@a_r$!%cr=57@!n^^qr(n4_f0kedmv
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 
-ALLOWED_HOSTS = ['.onrender.com']
+ALLOWED_HOSTS = ['.onrender.com',  'sales-management-system-35jp.onrender.com']
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
@@ -47,7 +47,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email', 'profile']
 # Application definition
 
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = False  # Porque estás en local
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True 
 
 # Fuerza el dominio exacto usado por tu navegador
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
