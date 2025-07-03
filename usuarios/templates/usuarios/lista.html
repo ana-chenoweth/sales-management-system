@@ -2,10 +2,7 @@
 {% block content %}
   <h2>Usuarios</h2>
 
-  {% if user.usuario.rol == 'ADMIN' %}
     <a href="{% url 'registro' %}" class="btn btn-primary mb-3">Crear nuevo usuario</a>
-  {% endif %}
-
   <ul class="list-group">
     {% for usuario in usuarios %}
       <li class="list-group-item">
