@@ -5,7 +5,7 @@ from .forms import UsuarioEditForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import PerfilForm
 from django.contrib.auth import update_session_auth_hash
-
+import traceback
 
 def es_admin(user):
     return user.is_authenticated and user.rol == 'admin'
@@ -19,16 +19,24 @@ def lista_usuarios(request):
 @user_passes_test(es_admin, login_url='/login/')
 def editar_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
-    if request.method == 'POST':
-        form = UsuarioEditForm(request.POST, request.FILES, instance=usuario)
-        if form.is_valid():
-            form.save()
-            return redirect('lista')
+    try:
+        if request.method == 'POST':
+            print("POST recibido")
+            print(request.POST)
+            print(request.FILES)
+            form = UsuarioEditForm(request.POST, request.FILES, instance=usuario)
+            if form.is_valid():
+                form.save()
+                return redirect('lista')
+            else:
+                print("Errores del formulario:", form.errors)
         else:
-            print(form.errors)
-    else:
-        form = UsuarioEditForm(instance=usuario)
-    return render(request, 'formulario.html', {'form': form, 'editar': True})
+            form = UsuarioEditForm(instance=usuario)
+        return render(request, 'formulario.html', {'form': form, 'editar': True})
+    except Exception as e:
+        print("Error inesperado:", e)
+        print(traceback.format_exc())
+        return render(request, '500.html', status=500)
 
 @login_required(login_url='/login/')
 @user_passes_test(es_admin, login_url='/login/')

@@ -19,8 +19,6 @@ class CambiarPasswordForm(PasswordChangeForm):
         fields = ['old_password', 'new_password1', 'new_password2']
 
 class UsuarioEditForm(forms.ModelForm):
-    password = None
-
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'rol', 'foto']
+        fields = ['username', 'email', 'rol']
