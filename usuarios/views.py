@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Usuario
 from .forms import RegistroUsuarioForm
+from .forms import UsuarioEditForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import PerfilForm
 from django.contrib.auth import update_session_auth_hash
@@ -18,11 +19,14 @@ def lista_usuarios(request):
 @user_passes_test(es_admin, login_url='/login/')
 def editar_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
-    form = RegistroUsuarioForm(request.POST or None, instance=usuario)
-    if form.is_valid():
-        form.save()
-        return redirect('lista')
-    return render(request, 'usuarios/formulario.html', {'form': form, 'editar': True})
+    if request.method == 'POST':
+        form = UsuarioEditForm(request.POST, request.FILES, instance=usuario)
+        if form.is_valid():
+            form.save()
+            return redirect('lista')
+    else:
+        form = UsuarioEditForm(instance=usuario)
+    return render(request, 'formulario.html', {'form': form, 'editar': True})
 
 @login_required(login_url='/login/')
 @user_passes_test(es_admin, login_url='/login/')

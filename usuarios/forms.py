@@ -17,3 +17,10 @@ class CambiarPasswordForm(PasswordChangeForm):
     class Meta:
         model = Usuario
         fields = ['old_password', 'new_password1', 'new_password2']
+
+class UsuarioEditForm(UserChangeForm):
+    password = None  # ocultar campo password (opcional)
+
+    class Meta:
+        model = Usuario
+        fields = ['username', 'email', 'rol', 'foto']
