@@ -32,7 +32,7 @@ def editar_usuario(request, pk):
                 print("Errores del formulario:", form.errors)
         else:
             form = UsuarioEditForm(instance=usuario)
-        return render(request, 'formulario.html', {'form': form, 'editar': True})
+        return render(request, 'usuarios/formulario.html', {'form': form, 'editar': True})
     except Exception as e:
         print("Error inesperado:", e)
         print(traceback.format_exc())
