@@ -10,4 +10,5 @@
     <h3>Vista previa:</h3>
     <img src="{{ user.foto.url }}" alt="Foto de perfil" style="max-width: 200px;">
   {% endif %}
+  <a href="{% url 'usuarios:cambiar_contrasena' %}" class="btn btn-warning mt-3">Cambiar contraseña</a>
 {% endblock %}
