@@ -24,6 +24,8 @@ def editar_usuario(request, pk):
         if form.is_valid():
             form.save()
             return redirect('lista')
+        else:
+            print(form.errors)
     else:
         form = UsuarioEditForm(instance=usuario)
     return render(request, 'formulario.html', {'form': form, 'editar': True})

@@ -18,8 +18,8 @@ class CambiarPasswordForm(PasswordChangeForm):
         model = Usuario
         fields = ['old_password', 'new_password1', 'new_password2']
 
-class UsuarioEditForm(UserChangeForm):
-    password = None  # ocultar campo password (opcional)
+class UsuarioEditForm(forms.ModelForm):
+    password = None
 
     class Meta:
         model = Usuario
