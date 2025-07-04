@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Usuario
-from .forms import RegistroUsuarioForm
+from .forms import RegistroUsuarioForm, CambiarPasswordForm
 from .forms import UsuarioEditForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import PerfilForm
@@ -54,7 +54,11 @@ def registro(request):
         form = RegistroUsuarioForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            if request.user.is_authenticated and request.user.rol == 'admin':
+                usuarios = Usuario.objects.all()
+                return render(request, 'usuarios/lista.html', {'usuarios': usuarios})  # admin creó usuario
+            else:
+                return redirect('login')  # nuevo usuario se registró
     else:
         form = RegistroUsuarioForm()
     return render(request, 'usuarios/registro.html', {'form': form})
