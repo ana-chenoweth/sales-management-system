@@ -27,7 +27,8 @@ def editar_usuario(request, pk):
             form = UsuarioEditForm(request.POST, request.FILES, instance=usuario)
             if form.is_valid():
                 form.save()
-                return redirect('lista')
+                usuarios = Usuario.objects.all()
+                return render(request, 'usuarios/lista.html', {'usuarios': usuarios})
             else:
                 print("Errores del formulario:", form.errors)
         else:
@@ -44,7 +45,8 @@ def eliminar_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
     if request.method == 'POST':
         usuario.delete()
-        return redirect('lista')
+        usuarios = Usuario.objects.all()
+        return render(request, 'usuarios/lista.html', {'usuarios': usuarios})
     return render(request, 'usuarios/confirmar_eliminar.html', {'usuario': usuario})
 
 def registro(request):
